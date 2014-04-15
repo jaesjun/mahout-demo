@@ -252,6 +252,8 @@ public class MahoutDemoUI implements ActionListener, ListSelectionListener {
 	public void loadPreference(InputStream is) throws IOException {
 		PreferenceLoader.Listener listener = new PreferenceLoader.Listener() {
 			public void preferenceLoadStarted(String[] columns) {
+				preferenceChart.clearPreference();
+				preferenceChart.clearSelection();
 			}
 
 			public void preferenceLoaded(Preference preference) {
@@ -271,9 +273,15 @@ public class MahoutDemoUI implements ActionListener, ListSelectionListener {
 	public void loadUser(InputStream is) throws IOException {
 		final List<User> users = new ArrayList<User>();
 		final List<String> header = new ArrayList<String>();
+		final List<Long> maxUserId = new ArrayList<Long>();
+		maxUserId.add(-1L);
 		
 		UserLoader.Listener listener = new UserLoader.Listener() {
 			public void userLoaded(User user) {
+				if (maxUserId.get(0) < user.getId()) {
+					maxUserId.remove(0);
+					maxUserId.add(user.getId());
+				}
 				users.add(user);
 			}
 			
@@ -289,17 +297,24 @@ public class MahoutDemoUI implements ActionListener, ListSelectionListener {
 		
 		userLoader.addListener(listener);
 		userLoader.loadUser(is);
-		
-		userTable.displayUser(users, header);
+		preferenceChart.setMaxUserId(maxUserId.get(0));
+		userTable.displayUser(header, users);
 		userTable.setRowSelectionInterval(0, 0);
 	}
 
 	public void loadItem(InputStream is) throws IOException {
 		final List<Item> items = new ArrayList<Item>();
 		final List<String> header = new ArrayList<String>();
+		final List<Long> maxItemId = new ArrayList<Long>();
+		maxItemId.add(-1L);
 		
 		ItemLoader.Listener listener = new ItemLoader.Listener() {
 			public void itemLoaded(Item item) {
+				if (maxItemId.get(0) < item.getId()) {
+					maxItemId.remove(0);
+					maxItemId.add(item.getId());
+				}
+				
 				items.add(item);
 			}
 			
@@ -315,7 +330,8 @@ public class MahoutDemoUI implements ActionListener, ListSelectionListener {
 		
 		itemLoader.addListener(listener);
 		itemLoader.loadItem(is);
-		itemTable.displayItem(items);
+		preferenceChart.setMaxItemId(maxItemId.get(0));
+		itemTable.displayItem(header, items);
 	}
 
 	public void setPreferredSize(Dimension preferredSize) {

@@ -9,12 +9,12 @@ import org.mahoutdemo.model.User;
 
 public class UserTable extends SingleSelectionTableBase {
 	
-	public void displayUser(List<User> users, List<String> header) {
+	public void displayUser(List<String> header, List<User> users) {
 		super.setAutoCreateRowSorter(false);
 		setModel(new UserTableModel(users, header));
 		getColumnModel().getColumn(0).setMaxWidth(45);
-		getColumnModel().getColumn(1).setMaxWidth(56);
-		getColumnModel().getColumn(2).setMaxWidth(56);
+		//getColumnModel().getColumn(1).setMaxWidth(56);
+		//getColumnModel().getColumn(2).setMaxWidth(56);
 		
 		TableRowSorter trs = new TableRowSorter(getModel());
 		NumberComparator numberComparator = new NumberComparator();
@@ -46,7 +46,7 @@ public class UserTable extends SingleSelectionTableBase {
 		}
 
 		public int getColumnCount() {
-			return 4;
+			return header.size();
 		}
 
 		public int getRowCount() {
@@ -63,12 +63,8 @@ public class UserTable extends SingleSelectionTableBase {
 			
 			if (columnIndex == 0) {
 				column = user.getId();
-			} else if (columnIndex == 1) {
-				column = Long.valueOf(user.getAge());
-			} else if (columnIndex == 2) {
-				column = user.getGender();
 			} else {
-				column = user.getJob();
+				column = user.getColumns().get(columnIndex);
 			}
 				
 			return column;

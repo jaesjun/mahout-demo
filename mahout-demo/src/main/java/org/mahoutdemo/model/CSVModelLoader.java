@@ -31,9 +31,9 @@ public class CSVModelLoader implements UserLoader, ItemLoader, PreferenceLoader 
 				User user = new User();
 				try {
 					user.setId(Long.parseLong(columns[0]));
-					user.setAge(columns[1]);
-					user.setGender(columns[2]);
-					user.setJob(columns[3]);
+					for (String column : columns) {
+						user.addColumn(column);
+					}
 					notifyLoad(user);
 				} catch (NumberFormatException ne) {
 					System.err.println("Skip user record : " + line);
@@ -58,7 +58,9 @@ public class CSVModelLoader implements UserLoader, ItemLoader, PreferenceLoader 
 				try {
 					Item item = new Item();
 					item.setId(Long.parseLong(columns[0]));
-					item.setName(columns[1]);
+					for (String column : columns) {
+						item.addColumn(column);
+					}
 					notifyLoad(item);
 				} catch (NumberFormatException ne) {
 					System.err.println("Skip item record : " + line);

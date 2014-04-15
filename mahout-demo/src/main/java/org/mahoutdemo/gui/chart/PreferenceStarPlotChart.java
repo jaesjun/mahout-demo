@@ -15,8 +15,8 @@ import org.mahoutdemo.model.Preference;
 
 public class PreferenceStarPlotChart extends ChartBase {
 	
-	private int maxItemId = 1682;
-	private int maxUserId = 943;
+	private long maxItemId = 1682;
+	private long maxUserId = 943;
 	private int itemMarkingCount = 18;
 	private int userMarkingCount = 26;
 	
@@ -43,19 +43,19 @@ public class PreferenceStarPlotChart extends ChartBase {
 
 	private DecimalFormat scoreDf = new DecimalFormat("#.####");
 	
-	public int getMaxItemId() {
+	public long getMaxItemId() {
 		return maxItemId;
 	}
 
-	public void setMaxItemId(int maxItemId) {
+	public void setMaxItemId(long maxItemId) {
 		this.maxItemId = maxItemId;
 	}
 
-	public int getMaxUserId() {
+	public long getMaxUserId() {
 		return maxUserId;
 	}
 
-	public void setMaxUserId(int maxUserId) {
+	public void setMaxUserId(long maxUserId) {
 		this.maxUserId = maxUserId;
 	}
 
@@ -83,6 +83,10 @@ public class PreferenceStarPlotChart extends ChartBase {
 		}
 		
 		return false;
+	}
+	
+	public void clearPreference() {
+		allPreference.clear();
 	}
 	
 	public void clearSelection() {

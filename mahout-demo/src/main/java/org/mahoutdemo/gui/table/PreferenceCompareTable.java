@@ -157,7 +157,7 @@ public class PreferenceCompareTable extends JTable {
 			if (columnIndex == 0) {
 				column = user.getId();
 			} else if (columnIndex == 1){
-				column =  user.getAge() + " | " + user.getGender() + " | " +  user.getJob();
+				column =  user.getAllColumns(" | ");
 			} else {
 				Preference preference = userRepository.getUserItemPreference(user.getId(), comparedIds.get(columnIndex - 2));
 				if (preference != null) {
@@ -175,7 +175,7 @@ public class PreferenceCompareTable extends JTable {
 			if (columnIndex == 0) {
 				column = item.getId();
 			} else if (columnIndex == 1){
-				column = item.getName();
+				column = item.getAllColumns(" | ");
 			} else {
 				Preference preference = userRepository.getUserItemPreference(comparedIds.get(columnIndex - 2), item.getId());
 				if (preference != null) {
@@ -248,7 +248,7 @@ public class PreferenceCompareTable extends JTable {
 			if (columnIndex == 0) {
 				column = item.getId();
 			} else if (columnIndex == 1){
-				column = item.getName();
+				column = item.getAllColumns(" | ");
 			} else if (columnIndex == 2){
 				column = orgPreference.get(rowIndex);
 			}  else {

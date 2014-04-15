@@ -25,13 +25,13 @@ public class ItemTable extends SingleSelectionTableBase {
 		ibrPreferenceRenderer.setForeground(new Color(0,128,0));
 	}
 	
-	public void displayItem(List<Item> items) {
+	public void displayItem(List<String> header, List<Item> items) {
 		super.setAutoCreateRowSorter(true);
-		setModel(new ItemTableModel(items));
+		setModel(new ItemTableModel(header, items));
 		getColumnModel().getColumn(0).setMaxWidth(45);
-		getColumnModel().getColumn(2).setMaxWidth(55);
-		getColumnModel().getColumn(3).setMaxWidth(55);
-		getColumnModel().getColumn(4).setMaxWidth(55);
+		
+		getColumnModel().getColumn(header.size()).setMaxWidth(55);
+		getColumnModel().getColumn(header.size() + 1).setMaxWidth(55);
 		
 		trs = new TableRowSorter(getModel());
 		NumberComparator numberComparator = new NumberComparator();
@@ -52,12 +52,16 @@ public class ItemTable extends SingleSelectionTableBase {
 	
 	@Override
 	public TableCellRenderer getCellRenderer(int row, int column) {
-		if (column == 2) {
-			return orgPreferenceRenderer;
-		} else if (column == 3) {
-			return ubrPreferenceRenderer;
-		} else if (column == 4) {
-			return ibrPreferenceRenderer;
+		int headerSize = ((ItemTableModel)getModel()).header.size();
+		
+		if (column >= headerSize) {
+			if (column == headerSize) {
+				return orgPreferenceRenderer;
+			} else if (column == headerSize + 1) {
+				return ubrPreferenceRenderer;
+			} else if (column == headerSize + 2) {
+				return ibrPreferenceRenderer;
+			}
 		}
 		
 		return super.getCellRenderer(row, column);
@@ -75,8 +79,8 @@ public class ItemTable extends SingleSelectionTableBase {
 			dataModel.ubrMap.put(preference.getItemId(), preference.getPreference());
 		}
 		
-		trs.toggleSortOrder(3);
-		trs.toggleSortOrder(3);
+		trs.toggleSortOrder(dataModel.header.size() + 1);
+		trs.toggleSortOrder(dataModel.header.size() + 1);
 	}
 
 	public void displayItemBasedRecommendation(List<Preference> recommendations) {
@@ -87,8 +91,8 @@ public class ItemTable extends SingleSelectionTableBase {
 			dataModel.ibrMap.put(preference.getItemId(), preference.getPreference());
 		}
 		
-		trs.toggleSortOrder(4);
-		trs.toggleSortOrder(4);
+		trs.toggleSortOrder(dataModel.header.size() + 2);
+		trs.toggleSortOrder(dataModel.header.size() + 2);
 	}
 
 	public Item getItem(Long itemId) {
@@ -96,12 +100,14 @@ public class ItemTable extends SingleSelectionTableBase {
 	}
 
 	class ItemTableModel extends AbstractTableModel {
+		private List<String> header;
 		private Map<Long, Item> itemMap = new HashMap<Long, Item>();
 		private List<Item> items;
 		private Map<Long, Float> ubrMap = new HashMap<Long, Float>();
 		private Map<Long, Float> ibrMap = new HashMap<Long, Float>();
 		
-		public ItemTableModel(List<Item> items) {
+		public ItemTableModel(List<String> header, List<Item> items) {
+			this.header = header;
 			this.items = items;
 			for (Item item : items) {
 				itemMap.put(item.getId(), item);
@@ -109,7 +115,7 @@ public class ItemTable extends SingleSelectionTableBase {
 		}
 
 		public int getColumnCount() {
-			return 5;
+			return header.size() + 3;
 		}
 
 		public int getRowCount() {
@@ -122,11 +128,11 @@ public class ItemTable extends SingleSelectionTableBase {
 			
 			if (columnIndex == 0) {
 				column = item.getId();
-			} else if (columnIndex == 1){
-				column = item.getName();
-			} else if (columnIndex == 2){
+			} else if (columnIndex < header.size()){
+				column = item.getColumns().get(columnIndex);
+			} else if (columnIndex == header.size()){
 				column = item.getUserPreference();
-			}  else if (columnIndex == 3){
+			}  else if (columnIndex == header.size() + 1){
 				column = ubrMap.get(item.getId());
 			} else {
 				column = ibrMap.get(item.getId());
@@ -139,17 +145,15 @@ public class ItemTable extends SingleSelectionTableBase {
 	    public String getColumnName(int columnIndex) {
 			String column = "iid";
 			
-			if (columnIndex == 0) {
-				column = "iid";
-			} else if (columnIndex == 1){
-				column = "Item Name";
-			} else if (columnIndex == 2){
+			if (columnIndex < header.size()){
+				column = header.get(columnIndex);
+			} else if (columnIndex == header.size()){
 				column = "Pref";
-			} else if (columnIndex == 3){
+			} else if (columnIndex == header.size() + 1){
 				column = "UBR";
-			} else {
+			} else if (columnIndex == header.size() + 2){
 				column = "IBR";
-			}
+			} 
 				
 			return column;
 	    }
