@@ -1,40 +1,42 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Mahout demo : " />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Mahout demo by jaesjun</title>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>Mahout demo</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
-
   <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Mahout demo</h1>
+        <p class="header"></p>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/jaesjun/common">View on GitHub</a>
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/jaesjun/mahout-demo/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/jaesjun/mahout-demo/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/jaesjun/mahout-demo">View On GitHub</a></li>
+        </ul>
 
-          <h1 id="project_title">Mahout demo</h1>
-          <h2 id="project_tagline"></h2>
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/jaesjun">jaesjun</a></p>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/jaesjun/common/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/jaesjun/common/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
+      </header>
+      <section>
         <p>Welcom to mahout demo.</p>
 
-<p>This project is developed to show mahout demonstration.
-By default, it uses GroupLens movie preference data(<a href="http://grouplens.org/datasets/movielens/">http://grouplens.org/datasets/movielens/</a>)</p>
+<p>This project is developed to show how mahout works.
+By default, it uses GroupLens user, movie and preference data(<a href="http://grouplens.org/datasets/movielens/">http://grouplens.org/datasets/movielens/</a>).</p>
+
+<p>Any other user, item and preference data can be loaded as long as each file follows CSV format.
+The first line of data file is column header which can be displayed as a header in user, item table.</p>
 
 <ol>
 <li><p>Build with maven
@@ -43,17 +45,11 @@ mvn clean install</p></li>
 java -jar mahout-demo-0.0.1-SNAPSHOT-jar-with-dependencies.jar</p></li>
 </ol>
       </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Mahout demo maintained by <a href="https://github.com/jaesjun">jaesjun</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      <footer>
+        <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
       </footer>
     </div>
-
-    
-
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
   </body>
 </html>
