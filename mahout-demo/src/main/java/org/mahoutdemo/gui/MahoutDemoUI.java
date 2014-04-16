@@ -26,7 +26,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JToolBar;
+import javax.swing.JTabbedPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -55,6 +55,10 @@ import org.mahoutdemo.model.UserLoader;
 
 public class MahoutDemoUI implements ActionListener, ListSelectionListener {
 	private PreferenceStarPlotChart preferenceChart = new PreferenceStarPlotChart();
+	
+	private JTabbedPane tabPane = new JTabbedPane();
+	private JPanel cfMain = new JPanel();
+	private JPanel clusteringMain = new JPanel();
 	
 	private JPanel cotrolPanel = new JPanel();
 	private JPanel contentPanel = new JPanel();
@@ -102,16 +106,31 @@ public class MahoutDemoUI implements ActionListener, ListSelectionListener {
 	}
 
 	private void initUIs() {
-		initButtons();
-		initTables();
-		initContents();
+		initCfUIs();
+		initClusteringUIs();
 		
-		container.add(buttonPanel, BorderLayout.PAGE_START);
-		container.add(cotrolPanel, BorderLayout.LINE_START);
-		container.add(contentPanel, BorderLayout.CENTER);
+		tabPane.addTab("Collaborative Filtering", cfMain);
+		tabPane.addTab("Clustering", clusteringMain);
+		
+		container.add(tabPane, BorderLayout.CENTER);
 	}
 
-	private void initContents() {
+	private void initClusteringUIs() {
+		clusteringMain.setLayout(new BorderLayout());	
+	}
+
+	private void initCfUIs() {
+		initCfButtons();
+		initCfTables();
+		initCfContents();
+
+		cfMain.setLayout(new BorderLayout());
+		cfMain.add(buttonPanel, BorderLayout.PAGE_START);
+		cfMain.add(cotrolPanel, BorderLayout.LINE_START);
+		cfMain.add(contentPanel, BorderLayout.CENTER);
+	}
+
+	private void initCfContents() {
 		preferenceChart.setBackgroundColor(Color.white);
 		preferenceChart.setBorder(BorderFactory.createLineBorder(Color.gray));
 		
@@ -120,7 +139,7 @@ public class MahoutDemoUI implements ActionListener, ListSelectionListener {
 		contentPanel.add(preferenceChart, BorderLayout.CENTER);
 	}
 
-	private void initButtons() {
+	private void initCfButtons() {
 		buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
 		buttonPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		buttonPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
@@ -160,7 +179,7 @@ public class MahoutDemoUI implements ActionListener, ListSelectionListener {
 		clearButton.addActionListener(this);
 	}
 
-	private void initTables() {
+	private void initCfTables() {
 		cotrolPanel.setLayout(gridbag);
 		cotrolPanel.setPreferredSize(new Dimension(350, 700));
 		cotrolPanel.setBorder(BorderFactory.createEmptyBorder(0, 8, 5, 2));
