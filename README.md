@@ -13,6 +13,27 @@ By default, it uses GroupLens user, movie and preference data(http://grouplens.o
 Any other user, item and preference data can be loaded as long as each file follows CSV format.
 The first line of data file is column header which can be displayed as a header in user, item table.
 
+Features
+==========
+
+(Collaborative Filtering)
+
+-. User Based Recommendation
+
+-. Item Based Recommendation
+
+-. Similar Users
+
+-. Similar Items
+
+(Clustering)
+
+-. KMeans Clustering
+
+-. Fuzzy KMeans Clustering
+
+-. Canopy Clustering
+
 
 Build with maven
 ==========
