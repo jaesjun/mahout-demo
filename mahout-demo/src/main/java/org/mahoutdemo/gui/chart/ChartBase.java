@@ -2,16 +2,12 @@ package org.mahoutdemo.gui.chart;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 
 import javax.swing.JComponent;
 
-public class ChartBase extends JComponent implements MouseMotionListener, MouseListener, KeyListener {
+public abstract class ChartBase extends JComponent {
     protected int leftMargin = 15;
     protected int topMargin = 15;
     protected int rightMargin = 15;
@@ -22,7 +18,7 @@ public class ChartBase extends JComponent implements MouseMotionListener, MouseL
     protected Color labelColor = new Color(0, 0, 128);
     
     protected Color backgroundColor = Color.white;
-    protected Color innerBackgrundColor = Color.white;//new Color(50, 50, 50);
+    protected Color innerBackgrundColor = Color.white;
     protected Font fontLabel = new Font( "Arial", Font.PLAIN, 10) ;
     
 	public Color getLineColor() {
@@ -78,34 +74,18 @@ public class ChartBase extends JComponent implements MouseMotionListener, MouseL
         DrawUtil.fillRect(g2, innerBackgrundColor, leftMargin+1, topMargin+1, 
         		getSize().width-(leftMargin + rightMargin + 1), getSize().height - (topMargin + bottomMargin + 1));
     }
-
-	public void keyPressed(KeyEvent e) {
+	
+	
+	@Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        
+        Graphics2D g2 = (Graphics2D) g.create();
+        fillBackground(g2);
+        drawChart(g2);
 	}
+	
+	public abstract void drawChart(Graphics2D g2);
 
-	public void keyReleased(KeyEvent e) {
-	}
 
-	public void keyTyped(KeyEvent e) {
-	}
-
-	public void mouseClicked(MouseEvent e) {
-	}
-
-	public void mouseEntered(MouseEvent e) {
-	}
-
-	public void mouseExited(MouseEvent e) {
-	}
-
-	public void mousePressed(MouseEvent e) {
-	}
-
-	public void mouseReleased(MouseEvent e) {
-	}
-
-	public void mouseDragged(MouseEvent e) {
-	}
-
-	public void mouseMoved(MouseEvent e) {
-	}
 }

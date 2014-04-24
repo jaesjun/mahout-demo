@@ -201,20 +201,7 @@ public class PreferenceStarPlotChart extends ChartBase {
 
 	public void addPreference(Preference preference) {
 		allPreference.add(preference);
-		super.updateUI();
-	}
-	
-	@Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        
-        Graphics2D g2 = (Graphics2D) g.create();
-        
-        fillBackground(g2);
-        drawMarking(g2, true);
-        drawPreferences(g2);
-        drawMarkDescription(g2);
-        drawPreferenceDescription(g2);
+		super.repaint();
 	}
 	
 	private void drawPreferences(Graphics2D g2) {
@@ -439,6 +426,14 @@ public class PreferenceStarPlotChart extends ChartBase {
 		
 			allPreference.add(item);
 		}
+	}
+
+	@Override
+	public void drawChart(Graphics2D g2) {
+        drawMarking(g2, true);
+        drawPreferences(g2);
+        drawMarkDescription(g2);
+        drawPreferenceDescription(g2);
 	}
 
 
