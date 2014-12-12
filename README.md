@@ -35,7 +35,9 @@ Features
 -. Canopy Clustering
 
 (Document Clustering)
+
 -. KMeans Clustering
+
 -. Fuzzy KMeans Clustering
 
 Build with maven
